@@ -15,4 +15,10 @@ server.use(express.json());
 server.use('/api/auth', authRouter);
 server.use('/api/jokes', authenticate, jokesRouter);
 
+// catch-all endpoint
+server.get('*', handleDefault);
+function handleDefault(req, res) {
+  {res.json('hello from the sprint web auth challenge')}
+}
+
 module.exports = server;
