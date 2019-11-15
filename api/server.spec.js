@@ -30,19 +30,16 @@ describe('server', () => {
     let wrongData = {"name": "chioma", "password": "testing"}
 
     test(' POST REGISTER new member 201 ', () => {
-
-     request('http://localhost:3300/api/auth/register')
-        .post('/register')
+      return request(server)
+        .post('/api/auth/register')
         .send(goodData)
-        .set('Accept', 'application/json')
         .expect(201)
         .expect('Content-Type', /json/)
     })
 
     test(' POST REGISTER duplicate data 500 ', () => {
-
-      request('http://localhost:3300/api/auth/register')
-         .post('/register')
+      return request(server)
+         .post('/api/auth/register')
          .send(duplicateData)
          .set('Accept', 'application/json')
          .expect(500)
@@ -50,9 +47,8 @@ describe('server', () => {
      })
 
      test(' POST REGISTER wrong data 500 ', () => {
-
-      request('http://localhost:3300/api/auth/register')
-         .post('/register')
+       return request(server)
+         .post('/api/auth/register')
          .send(wrongData)
          .set('Accept', 'application/json')
          .expect(500)
@@ -60,9 +56,8 @@ describe('server', () => {
      })
 
      test(' POST LOGIN 200 ', () => {
-
-      request('http://localhost:3300/api/auth/login')
-         .post('/login')
+       return request(server)
+         .post('/api/auth/login')
          .send(goodData)
          .set('Accept', 'application/json')
          .expect(200)
@@ -70,9 +65,8 @@ describe('server', () => {
      })
 
      test(' POST LOGIN wrong data 500 ', () => {
-
-      request('http://localhost:3300/api/auth/login')
-         .post('/login')
+       return request(server)
+         .post('/api/auth/login')
          .send(wrongData)
          .set('Accept', 'application/json')
          .expect(500)
@@ -80,9 +74,8 @@ describe('server', () => {
      })
 
      test(' POST LOGIN no data 500 ', () => {
-
-      request('http://localhost:3300/api/auth/login')
-         .post('/login')
+       return request(server)
+         .post('/api/auth/login')
          .set('Accept', 'application/json')
          .expect(500)
          .expect('Content-Type', /json/)
@@ -95,9 +88,8 @@ describe('server', () => {
     let badToken = { Authorization: "eyJhbGciOiJ"}
 
     test(' GET JOKES 200 ', () => {
-
-     request('http://localhost:3300/api/jokes')
-        .post('/jokes')
+      return request(server)
+        .post('/api/jokes')
         .send(token)
         .set('Accept', 'application/json')
         .expect(200)
@@ -105,9 +97,8 @@ describe('server', () => {
     })
 
     test(' GET JOKES no token 500 ', () => {
-
-      request('http://localhost:3300/api/jokes')
-         .post('/jokes')
+      return request(server)
+         .post('/api/jokes')
         //  .send(token)
          .set('Accept', 'application/json')
          .expect(500)
@@ -115,9 +106,8 @@ describe('server', () => {
      })
 
      test(' GET JOKES bad token 500 ', () => {
-
-      request('http://localhost:3300/api/jokes')
-         .post('/jokes')
+       return request(server)
+         .post('/api/jokes')
          .send(badToken)
          .set('Accept', 'application/json')
          .expect(500)
