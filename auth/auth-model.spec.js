@@ -23,9 +23,9 @@ describe('Members model', () => {
       expect(users).toHaveLength(1)
     })
 
-    it('should NOT register user', async () => {
-      await Members.add({"name": "chioma", "password": "testing"})
-    })
+    // it('should NOT register user', async () => {
+    //   await Members.add({"name": "chioma", "password": "testing"})
+    // })
   })
 })
 

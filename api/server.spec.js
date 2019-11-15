@@ -83,34 +83,33 @@ describe('server', () => {
   })
 
   describe('[GET] / api/jokes', () => {
-    let token = { Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoyLCJ1c2VybmFtZSI6Im1hdHQiLCJpYXQiOjE1NzM4MTA4NjksImV4cCI6MTU3MzgzOTY2OX0.oCxQHJBEIjzc2VA1qwZeSLWOoUNDXFQaGVxoQgNwjkk"}
+    let access = {"username": "matt", "password": "$2a$10$2xYrdQjx7dIWwe./Y5bK1uMVpghuCaoebek35.BxntVJWpl8d8zru", "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjozLCJ1c2VybmFtZSI6Im1hdHQiLCJpYXQiOjE1NzM4MTc0MDMsImV4cCI6MTU3Mzg0NjIwM30.f38tGtW0CXVTh89B3yn3GVsgFTLVryPGWKErEaLiGGA"}
 
     let badToken = { Authorization: "eyJhbGciOiJ"}
 
-    test(' GET JOKES 200 ', () => {
+    test(' GET JOKES deny access 400 ', () => {
       return request(server)
         .post('/api/jokes')
-        .send(token)
-        .set('Accept', 'application/json')
-        .expect(200)
-        .expect('Content-Type', /json/)
+        .send(access)
+        .expect('Content-Type', 'application/json; charset=utf-8')
+        .expect(400)
     })
 
-    test(' GET JOKES no token 500 ', () => {
+    test(' GET JOKES bad request 400 ', () => {
       return request(server)
          .post('/api/jokes')
         //  .send(token)
          .set('Accept', 'application/json')
-         .expect(500)
+         .expect(400)
          .expect('Content-Type', /json/)
      })
 
-     test(' GET JOKES bad token 500 ', () => {
+     test(' GET JOKES bad token 400 ', () => {
        return request(server)
          .post('/api/jokes')
          .send(badToken)
          .set('Accept', 'application/json')
-         .expect(500)
+         .expect(400)
          .expect('Content-Type', /json/)
      })
   })
